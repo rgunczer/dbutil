@@ -1,0 +1,83 @@
+{
+  "themes": {
+    "got": {
+      "name": "Game of Thrones characters",
+      "characters": [
+        "Jon Snow",
+        "Daenerys Targaryen",
+        "Tyrion Lannister",
+        "Arya Stark",
+        "Sansa Stark",
+        "Cersei Lannister",
+        "Jaime Lannister",
+        "Bran Stark",
+        "Jorah Mormont",
+        "Samwell Tarly",
+        "Theon Greyjoy",
+        "Sandor Clegane",
+        "Brienne of Tarth",
+        "Davos Seaworth",
+        "Melisandre",
+        "Petyr Baelish",
+        "Tormund Giantsbane",
+        "Gendry Waters",
+        "Robb Stark",
+        "Khal Drogo"
+      ]
+    },
+    "vdl": {
+      "name": "Van der Linde gang members",
+      "characters": [
+        "Arthur Morgan",
+        "Dutch van der Linde",
+        "John Marston",
+        "Sadie Adler",
+        "Javier Escuella",
+        "Charles Smith",
+        "Bill Williamson",
+        "Micah Bell",
+        "Hosea Matthews",
+        "Lenny Summers",
+        "Susan Grimshaw",
+        "Pearson",
+        "Abigail Roberts",
+        "Jack Marston",
+        "Kieran Duffy",
+        "Mary-Beth Gaskill",
+        "Tilly Jackson",
+        "Karen Jones",
+        "Reverend Swanson",
+        "Leopold Strauss"
+      ]
+    },
+    "re": {
+      "name": "Resident Evil characters",
+      "characters": [
+        "Leon S. Kennedy",
+        "Claire Redfield",
+        "Chris Redfield",
+        "Jill Valentine",
+        "Ada Wong",
+        "Albert Wesker",
+        "Rebecca Chambers",
+        "Carlos Oliveira",
+        "Sheva Alomar",
+        "Piers Nivans",
+        "Jake Muller",
+        "Sherry Birkin",
+        "Moira Burton",
+        "Helena Harper",
+        "Parker Luciani",
+        "Jessica Sherawat",
+        "Billy Coen",
+        "Ethan Winters",
+        "Richard Aiken",
+        "Barry Burton"
+      ]
+    },
+    "random": {
+      "name": "Full random (using Faker)",
+      "characters": []
+    }
+  }
+}

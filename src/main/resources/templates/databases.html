@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Database List</title>
+  <script>
+    let themes;
+
+    window.onload = function() {
+      fetch('/characters.json')
+      .then(response => response.json())
+      .then(data => {
+        themes = data.themes;
+        populateThemes();
+        updateCharacters();
+      });
+    };
+
+    function populateThemes() {
+      const themeSelect = document.getElementById('theme');
+      for (const key in themes) {
+        if (themes.hasOwnProperty(key)) {
+          const option = document.createElement('option');
+          option.value = key;
+          option.textContent = themes[key].name;
+          themeSelect.appendChild(option);
+        }
+      }
+    }
+
+    function updateCharacters() {
+      const theme = document.getElementById('theme').value;
+      const charactersList = document.getElementById('charactersList');
+      charactersList.innerHTML = '';
+
+      if (themes[theme]) {
+        const characters = themes[theme].characters;
+        for (const character of characters) {
+          const li = document.createElement('li');
+          li.textContent = character;
+          charactersList.appendChild(li);
+        }
+      }
+    }
+
+    function confirmDrop() {
+      return confirm("Are you sure you want to drop this database?")
+    }
+  </script>
+</head>
+<body>
+  <h1 style="text-align: center">Database Management</h1>
+  <hr>
+  <h2>Drop Database</h2>
+  <form th:action="@{/drop}" method="post" onsubmit="return confirmDrop()">
+    <label for="dropDatabase">Database:</label>
+    <select id="dropDatabase" name="dbName">
+      <option th:each="db : ${databases}" th:value="${db}" th:text="${db}">Database</option>
+    </select>
+    <button type="submit">Drop</button>
+  </form>
+  <hr>
+  <h2>Create a New Database and Initialize from Blueprint and Add Test Users</h2>
+  <form th:action="@{/create-init}" method="post">
+    <label for="newDatabaseName">New Database Name:</label>
+    <input type="text" id="newDatabaseName" name="dbName" required>
+    <button type="submit">Create</button>
+  </form>
+  <hr>
+  <h2>Generate Test Data</h2>
+  <form th:action="@{/execute}" method="post">
+    <table>
+      <tr>
+        <td>
+          <label for="database">Database:</label>
+        </td>
+        <td>
+          <select id="database" name="databaseName">
+            <option th:each="db : ${databases}" th:value="${db}" th:text="${db}">Database</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="theme">Theme:</label></td>
+        <td>
+          <select id="theme" name="theme" onchange="updateCharacters()">
+            <!-- Options will be populated by JavaScript -->
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="offerRows">Number of Offers:</label></td>
+        <td><input type="number" id="offerRows" name="offerRows" value="10"></td>
+      </tr>
+      <tr>
+        <td><label for="interviewRows">Number of Interviews:</label></td>
+        <td><input type="number" id="interviewRows" name="interviewRows" value="10"></td>
+      </tr>
+      <tr>
+        <td><label for="sourceRows">Number of Sources:</label></td>
+        <td><input type="number" id="sourceRows" name="sourceRows" value="10"></td>
+      </tr>
+      <tr>
+        <td><label for="vacancyRows">Number of Vacancies:</label></td>
+        <td><input type="number" id="vacancyRows" name="vacancyRows" value="10"></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"><button type="submit">Generate</button></td>
+      </tr>
+    </table>
+  </form>
+
+  <ul id="charactersList">
+    <!-- Character names will be displayed here -->
+  </ul>
+</body>
+</html>
