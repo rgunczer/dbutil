@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Database List</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
   <script>
     let themes;
 
@@ -61,6 +62,22 @@
   </form>
   <hr>
   <h2>Create a New Database and Initialize from Blueprint and Add Test Users</h2>
+  <p>
+    <span>[Blueprint] SQL Script Status is</span>
+    <strong
+      class="script-status"
+      th:text="${isBlueprintScriptReady ? 'Ok' : 'Invalid'}"
+      th:style="${isBlueprintScriptReady ? '' : 'background-color:red;'}"
+    ></strong>
+  </p>
+  <p>
+    <span>[Test Users] SQL Script Status is</span>
+    <strong
+      class="script-status"
+      th:text="${isTestUsersScriptReady ? 'Ok' : 'Invalid'}"
+      th:style="${isTestUsersScriptReady ? '' : 'background-color:red;'}"
+    ></strong>
+  </p>
   <form th:action="@{/create-init}" method="post">
     <label for="newDatabaseName">New Database Name:</label>
     <input type="text" id="newDatabaseName" name="dbName" required>

@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,8 +40,14 @@ public class DatabaseService {
     @Value("${script.path.sql_db_blueprint}")
     private String blueprintScriptPath;
 
+    @Getter
+    private boolean blueprintScriptPathReady;
+
     @Value("${script.path.sql_test_users}")
     private String testUsersScriptPath;
+
+    @Getter
+    private boolean testUsersScriptPathReady;
 
     private CharacterConfig characterConfig;
 
@@ -128,6 +135,23 @@ public class DatabaseService {
         }
     }
 
+    private boolean isPathToScriptValid(
+        final String humanReadableName,
+        final String pathToScript
+    ) {
+        final var path = Paths.get(pathToScript);
+
+        if (Files.exists(path) && Files.isRegularFile(path)) {
+            return true;
+        }
+
+        log.warn(
+            "Script [" + humanReadableName + "] at path [" + pathToScript + "] does NOT exists"
+        );
+
+        return false;
+    }
+
     @PostConstruct
     public void init() throws IOException {
         final var objectMapper = new ObjectMapper();
@@ -136,7 +160,8 @@ public class DatabaseService {
             CharacterConfig.class
         );
 
-        // TODO: check existatnce of sql scripts bluepring and add test users
+        blueprintScriptPathReady = isPathToScriptValid("Blueprint", blueprintScriptPath);
+        testUsersScriptPathReady = isPathToScriptValid("Test Users", testUsersScriptPath);
     }
 
 }

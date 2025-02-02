@@ -21,6 +21,8 @@ public class DatabaseController {
     @GetMapping("/")
     public String listDatabases(Model model) {
         model.addAttribute("databases", databaseService.getDatabaseNames());
+        model.addAttribute("isBlueprintScriptReady", databaseService.isBlueprintScriptPathReady());
+        model.addAttribute("isTestUsersScriptReady", databaseService.isTestUsersScriptPathReady());
 
         return "databases";
     }
