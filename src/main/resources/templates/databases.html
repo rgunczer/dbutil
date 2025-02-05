@@ -45,6 +45,12 @@
     }
 
     function confirmDrop() {
+      // handle empty - no database selected
+      const dbSelect = document.getElementById("dropDatabase");
+      if (dbSelect.value.trim() === "") {
+        alert("Please select a database before dropping.");
+        return false;
+      }
       return confirm("Are you sure you want to drop this database?")
     }
 
