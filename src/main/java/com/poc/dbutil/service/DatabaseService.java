@@ -49,6 +49,9 @@ public class DatabaseService {
     @Getter
     private boolean testUsersScriptPathReady;
 
+    @Value("${dbschema-table-name:schema_version}")
+    private String dbSchemaTableName;
+
     private CharacterConfig characterConfig;
 
 
@@ -162,6 +165,8 @@ public class DatabaseService {
 
         blueprintScriptPathReady = isPathToScriptValid("Blueprint", blueprintScriptPath);
         testUsersScriptPathReady = isPathToScriptValid("Test Users", testUsersScriptPath);
+
+        System.out.println("DB_SCHEMA_TABLE_NAME [" + dbSchemaTableName + "]");
     }
 
 }
