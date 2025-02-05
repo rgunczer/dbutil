@@ -3,4 +3,4 @@ manage SQL Server databases and initialize them with a blueprint (SQL) and add t
 tech stack: 
 - Java 21
 - Spring-Boot 3.4.x
-- WebApp with thymeleaf
+- WebApp with Thymeleaf
