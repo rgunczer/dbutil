@@ -12,12 +12,12 @@
       .then(response => response.json())
       .then(data => {
         themes = data.themes;
-        populateThemes();
+        populateTestDataThemes();
         updateCharacters();
       });
     };
 
-    function populateThemes() {
+    function populateTestDataThemes() {
       const themeSelect = document.getElementById('theme');
       for (const key in themes) {
         if (themes.hasOwnProperty(key)) {
@@ -47,6 +47,22 @@
     function confirmDrop() {
       return confirm("Are you sure you want to drop this database?")
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const databaseSelect = document.getElementById('database');
+      databaseSelect.addEventListener('change', (event) => {
+        const selectedDatabase = event.target.value;
+        const url = `/flyway-schemas?database=${encodeURIComponent(selectedDatabase)}`;
+
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            // TODO: display the list on the UI for instepction possibly in a reverse order by showin the last migration script
+          });
+
+      })
+    })
   </script>
 </head>
 <body>
