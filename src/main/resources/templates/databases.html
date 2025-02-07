@@ -55,6 +55,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+
+      // database select
       const databaseSelect = document.getElementById('database');
       databaseSelect.addEventListener('change', (event) => {
         const selectedDatabase = event.target.value;
@@ -66,8 +68,23 @@
             console.log(data);
             // TODO: display the list on the UI for instepction possibly in a reverse order by showin the last migration script
           });
+      });
 
-      })
+      // list database migrations
+      const btnListMigrationsInSelectedDatabase = document.getElementById('btnListMigrations');
+      btnListMigrationsInSelectedDatabase.addEventListener('click', () => {
+        const currentlySelectedDatabase = databaseSelect.value;
+        if (!currentlySelectedDatabase) {
+          alert('Unable to continue, NO Database Selected');
+          databaseSelect.focus();
+          return;
+        }
+
+        alert(`Selected Database: ${currentlySelectedDatabase}`);
+
+        // TODO: call fetch api to get the list of migrations stored in a flyway schema table
+      });
+
     })
   </script>
 </head>
@@ -108,43 +125,71 @@
   <hr>
   <h2>Generate Test Data</h2>
   <form th:action="@{/execute}" method="post">
-    <table>
+    <table border="0">
       <tr>
         <td>
           <label for="database">Database:</label>
         </td>
-        <td>
+        <td colspan="2">
           <select id="database" name="databaseName">
             <option th:each="db : ${databases}" th:value="${db}" th:text="${db}">Database</option>
           </select>
         </td>
       </tr>
       <tr>
-        <td><label for="theme">Theme:</label></td>
         <td>
+          <label for="schemaTableName">Schema Table Name:</label>
+        </td>
+        <td>
+          <input type="text" id="schemaTableName" name="schemaTableName" value="schema_version">
+        </td>
+        <td>
+          <button type="button" id="btnListMigrations">List Migrations</button>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="theme">Theme:</label></td>
+        <td colspan="2">
           <select id="theme" name="theme" onchange="updateCharacters()">
             <!-- Options will be populated by JavaScript -->
           </select>
         </td>
       </tr>
       <tr>
-        <td><label for="offerRows">Number of Offers:</label></td>
-        <td><input type="number" id="offerRows" name="offerRows" value="10"></td>
+        <td>
+          <label for="offerRows">Number of Offers:</label>
+        </td>
+        <td colspan="2">
+          <input type="number" id="offerRows" name="offerRows" value="10">
+        </td>
       </tr>
       <tr>
-        <td><label for="interviewRows">Number of Interviews:</label></td>
-        <td><input type="number" id="interviewRows" name="interviewRows" value="10"></td>
+        <td>
+          <label for="interviewRows">Number of Interviews:</label>
+        </td>
+        <td colspan="2">
+          <input type="number" id="interviewRows" name="interviewRows" value="10">
+        </td>
       </tr>
       <tr>
-        <td><label for="sourceRows">Number of Sources:</label></td>
-        <td><input type="number" id="sourceRows" name="sourceRows" value="10"></td>
+        <td>
+          <label for="sourceRows">Number of Sources:</label>
+        </td>
+        <td colspan="2">
+          <input type="number" id="sourceRows" name="sourceRows" value="10">
+        </td>
       </tr>
       <tr>
-        <td><label for="vacancyRows">Number of Vacancies:</label></td>
-        <td><input type="number" id="vacancyRows" name="vacancyRows" value="10"></td>
+        <td>
+          <label for="vacancyRows">Number of Vacancies:</label>
+        </td>
+        <td colspan="2">
+          <input type="number" id="vacancyRows" name="vacancyRows" value="10">
+        </td>
       </tr>
       <tr>
-        <td colspan="2" style="text-align: center;"><button type="submit">Generate</button></td>
+        <td></td>
+        <td colspan="2" style="text-align: left;"><button type="submit">Generate</button></td>
       </tr>
     </table>
   </form>
