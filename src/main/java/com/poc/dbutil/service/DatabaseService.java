@@ -51,6 +51,7 @@ public class DatabaseService {
     @Getter
     private boolean testUsersScriptPathReady;
 
+    @Getter
     @Value("${dbschema-table-name:schema_version}")
     private String dbSchemaTableName;
 
@@ -118,7 +119,8 @@ public class DatabaseService {
     }
 
     public List<String> getListOfMigrationsFrom(
-        final String databaseName
+        final String databaseName,
+        final String schemaTable
     ) {
         log.info("begin");
         final var migrations = new ArrayList<String>();
@@ -130,7 +132,7 @@ public class DatabaseService {
             log.trace(sqlSwitchDb);
             statement.execute(sqlSwitchDb);
 
-            final var sqlMigrations = "SELECT * FROM " + dbSchemaTableName;
+            final var sqlMigrations = "SELECT * FROM " + schemaTable;
             log.trace(sqlMigrations);
             try (final var resultSet = statement.executeQuery(sqlMigrations)) {
                 while (resultSet.next()) {

@@ -73,7 +73,10 @@
           return;
         }
 
-        const url = `/flyway-schemas?database=${encodeURIComponent(selectedDatabase)}`;
+        const txtSchemaTableName = document.getElementById('schemaTableName');
+        const schemaTable = txtSchemaTableName.value;
+
+        const url = `/flyway-schemas?schematable=${schemaTable}&database=${encodeURIComponent(selectedDatabase)}`;
         console.log(`getting list of migrations from [${selectedDatabase}] database...`);
         fetch(url)
           .then(res => res.json())
@@ -150,7 +153,7 @@
           <label for="schemaTableName">Schema Table Name:</label>
         </td>
         <td>
-          <input type="text" id="schemaTableName" name="schemaTableName" value="schema_version">
+          <input type="text" id="schemaTableName" name="schemaTableName" th:value="${databaseSchemaTableName}">
         </td>
         <td>
           <button type="button" id="btnListMigrations">List Migrations</button>

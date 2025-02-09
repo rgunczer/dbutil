@@ -30,6 +30,7 @@ public class DatabaseController {
         model.addAttribute("databases", databases);
         model.addAttribute("isBlueprintScriptReady", databaseService.isBlueprintScriptPathReady());
         model.addAttribute("isTestUsersScriptReady", databaseService.isTestUsersScriptPathReady());
+        model.addAttribute("databaseSchemaTableName", databaseService.getDbSchemaTableName());
 
         return "databases";
     }
@@ -59,10 +60,11 @@ public class DatabaseController {
     @GetMapping(value = "/flyway-schemas", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<String> getFlywaySchemas(
+        @RequestParam String schematable,
         @RequestParam String database
     ) {
         log.trace("getFlywaySchemas for [" + database + "]");
-        return databaseService.getListOfMigrationsFrom(database);
+        return databaseService.getListOfMigrationsFrom(database, schematable);
     }
 
 }
