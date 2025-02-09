@@ -18,7 +18,7 @@ Tech stack:
 ```
 DBUTIL_DB_USER_NAME=<db-user>
 DBUTIL_DB_PASSWORD=<db-password>
-DBUTIL_DATASOURCE_URL=<db-path-url>
+DBUTIL_DB_PATH=<db-path>
 
 DBUTIL_PATH_TO_BLUEPRINT=<full-path-to-blueprint.sql>
 DBUTIL_PATH_TO_TEST_USERS=<full-path-to-add-test-users.sql>
