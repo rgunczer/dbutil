@@ -6,7 +6,7 @@
 - provide various "themes" for test users generation
 - or generate full ranodm with Faker
 
-Tech stack: 
+Tech stack:
 ----------
 - Java 21
 - Spring-Boot 3.4.x
@@ -18,6 +18,7 @@ Tech stack:
 ```
 DBUTIL_DB_USER_NAME=<db-user>
 DBUTIL_DB_PASSWORD=<db-password>
+DBUTIL_DATASOURCE_URL=<db-path-url>
 
 DBUTIL_PATH_TO_BLUEPRINT=<full-path-to-blueprint.sql>
 DBUTIL_PATH_TO_TEST_USERS=<full-path-to-add-test-users.sql>
