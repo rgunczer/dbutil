@@ -56,33 +56,42 @@
 
     document.addEventListener('DOMContentLoaded', () => {
 
-      // database select
+      // dropdown -> database select
       const databaseSelect = document.getElementById('database');
       databaseSelect.addEventListener('change', (event) => {
         const selectedDatabase = event.target.value;
-        const url = `/flyway-schemas?database=${encodeURIComponent(selectedDatabase)}`;
-
-        fetch(url)
-          .then(res => res.json())
-          .then(data => {
-            console.log(data);
-            // TODO: display the list on the UI for instepction possibly in a reverse order by showin the last migration script
-          });
+        console.log(`selected database is [${selectedDatabase}]`);
       });
 
-      // list database migrations
+      // button -> list database migrations
       const btnListMigrationsInSelectedDatabase = document.getElementById('btnListMigrations');
       btnListMigrationsInSelectedDatabase.addEventListener('click', () => {
-        const currentlySelectedDatabase = databaseSelect.value;
-        if (!currentlySelectedDatabase) {
+        const selectedDatabase = databaseSelect.value;
+        if (!selectedDatabase) {
           alert('Unable to continue, NO Database Selected');
           databaseSelect.focus();
           return;
         }
 
-        alert(`Selected Database: ${currentlySelectedDatabase}`);
+        const url = `/flyway-schemas?database=${encodeURIComponent(selectedDatabase)}`;
+        console.log(`getting list of migrations from [${selectedDatabase}] database...`);
+        fetch(url)
+          .then(res => res.json())
+          .then(arr => {
+            console.log(arr);
+            arr.reverse();
 
-        // TODO: call fetch api to get the list of migrations stored in a flyway schema table
+            const selectElement = document.getElementById('migrations');
+            selectElement.innerHTML = '';
+
+            arr.forEach(csv => {
+              const item = csv.split(',').join(' | ');
+              const newOption = document.createElement('option');
+              newOption.value = csv;
+              newOption.textContent = item;
+              selectElement.appendChild(newOption);
+            });
+          });
       });
 
     })
@@ -145,6 +154,13 @@
         </td>
         <td>
           <button type="button" id="btnListMigrations">List Migrations</button>
+        </td>
+      </tr>
+      <tr>
+        <td>Migrations:</td>
+        <td colspan="2">
+          <select name="migrations" id="migrations" size="6">
+          </select>
         </td>
       </tr>
       <tr>

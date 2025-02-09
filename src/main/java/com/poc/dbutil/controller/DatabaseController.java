@@ -62,9 +62,7 @@ public class DatabaseController {
         @RequestParam String database
     ) {
         log.trace("getFlywaySchemas for [" + database + "]");
-        // TODO: implement
-        // return flywayService.getMigrationsForDatabase(database);
-        return List.of("V01_0__base.sql", "V57_0__add_jewelry.sql");
+        return databaseService.getListOfMigrationsFrom(database);
     }
 
 }

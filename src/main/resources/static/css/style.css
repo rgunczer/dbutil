@@ -6,3 +6,7 @@ body {
     padding: .2rem;
     border-radius: .2rem;
 }
+
+#migrations {
+    width: 600px;
+}

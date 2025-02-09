@@ -12,10 +12,12 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -89,6 +91,9 @@ public class DatabaseService {
         try (final var connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
 
+            log.info("switch to master");
+            statement.execute("USE master");
+
             log.info("create database");
             statement.execute(createdDatabaseSql);
 
@@ -110,6 +115,38 @@ public class DatabaseService {
         } catch (Exception ex) {
              return "Error creating database and/or initializing: " + ex.getMessage();
         }
+    }
+
+    public List<String> getListOfMigrationsFrom(
+        final String databaseName
+    ) {
+        log.info("begin");
+        final var migrations = new ArrayList<String>();
+
+        try (final var connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+
+            final var sqlSwitchDb = "USE " + databaseName;
+            log.trace(sqlSwitchDb);
+            statement.execute(sqlSwitchDb);
+
+            final var sqlMigrations = "SELECT * FROM " + dbSchemaTableName;
+            log.trace(sqlMigrations);
+            try (final var resultSet = statement.executeQuery(sqlMigrations)) {
+                while (resultSet.next()) {
+                    migrations.add(
+                        resultSet.getString("version") + "," +
+                        resultSet.getString("description") + "," +
+                        resultSet.getString("script")
+                    );
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        log.info("end");
+        return migrations;
     }
 
     private void executeScript(
