@@ -1,5 +1,6 @@
 package com.poc.dbutil.controller;
 
+import com.github.javafaker.Faker;
 import com.poc.dbutil.service.DatabaseService;
 
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,22 @@ public class DatabaseController {
     ) {
         log.trace("getFlywaySchemas for [" + database + "]");
         return databaseService.getListOfMigrationsFrom(database, schematable);
+    }
+
+    @GetMapping("/faker")
+    @ResponseBody
+    public List<String> getFakerNames(
+
+    ) {
+        final var faker = new Faker();
+
+        final var name = faker.name().fullName();
+        final var firstName = faker.name().firstName();
+        final var lastName = faker.name().lastName();
+
+        final var streetAddress = faker.address().streetAddress();
+
+        return List.of(name, firstName, lastName, streetAddress);
     }
 
 }
