@@ -3,8 +3,8 @@
 - initialize selected DB with blueprint (SQL)
 - read the current db "version" Flyway schema
 - insert test users
-- provide various "themes" for test users generation
-- or generate full ranodm with Faker
+- provide various "themes" for test data generation
+- or generate full random with Faker
 
 Tech stack:
 ----------
