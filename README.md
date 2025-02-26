@@ -1,6 +1,6 @@
 # Manage databases on SQL Server
-- create new or drop existing
-- initialize selected DB with blueprint (SQL)
+- create new and/or drop existing database
+- initialize selected database with blueprint SQL script
 - read the current db "version" Flyway schema
 - insert test users
 - provide various "themes" for test data generation
