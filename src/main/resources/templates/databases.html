@@ -25,6 +25,10 @@
       th:text="${isBlueprintScriptReady ? 'Ok' : 'Invalid'}"
       th:style="${isBlueprintScriptReady ? '' : 'background-color:red;'}"
     ></strong>
+    <button>Download</button>
+
+    <input type="file" accept=".sql" name="blueprint-sql" id="blueprint-sql">
+    <button>Upload</button>
   </p>
   <p>
     <span>[Test Users] SQL Script Status is</span>
@@ -33,6 +37,10 @@
       th:text="${isTestUsersScriptReady ? 'Ok' : 'Invalid'}"
       th:style="${isTestUsersScriptReady ? '' : 'background-color:red;'}"
     ></strong>
+    <button>Download</button>
+
+    <input type="file" accept=".sql" name="test-users-sql" id="test-users-sql">
+    <button>Upload</button>
   </p>
   <form th:action="@{/create-init}" method="post">
     <label for="newDatabaseName">New Database Name:</label>
