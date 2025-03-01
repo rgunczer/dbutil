@@ -54,6 +54,17 @@ function resetDbMigrationsList() {
 }
 
 function init() {
+  //
+  const btnDownloadBlueprintSql = document.getElementById('btn-download-blueprint-sql');
+  btnDownloadBlueprintSql.addEventListener('click', () => {
+    alert('download blueprint sql');
+  });
+
+  const btnDownloadTestUsersSql = document.getElementById('btn-download-test-users-sql');
+  btnDownloadTestUsersSql.addEventListener('click', () => {
+    alert('download test-users sql');
+  });
+
   // dropdown -> database select
   const databaseSelect = document.getElementById('database');
   databaseSelect.addEventListener('change', (event) => {

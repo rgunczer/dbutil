@@ -25,7 +25,7 @@
       th:text="${isBlueprintScriptReady ? 'Ok' : 'Invalid'}"
       th:style="${isBlueprintScriptReady ? '' : 'background-color:red;'}"
     ></strong>
-    <button>Download</button>
+    <button id="btn-download-blueprint-sql">Download</button>
 
     <input type="file" accept=".sql" name="blueprint-sql" id="blueprint-sql">
     <button>Upload</button>
@@ -37,7 +37,7 @@
       th:text="${isTestUsersScriptReady ? 'Ok' : 'Invalid'}"
       th:style="${isTestUsersScriptReady ? '' : 'background-color:red;'}"
     ></strong>
-    <button>Download</button>
+    <button id="btn-download-test-users-sql">Download</button>
 
     <input type="file" accept=".sql" name="test-users-sql" id="test-users-sql">
     <button>Upload</button>
