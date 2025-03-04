@@ -57,7 +57,8 @@ function init() {
   //
   const btnDownloadBlueprintSql = document.getElementById('btn-download-blueprint-sql');
   btnDownloadBlueprintSql.addEventListener('click', () => {
-    alert('download blueprint sql');
+    // alert('download blueprint sql');
+    window.open('/download?fileName=blueprint.sql', '_blank');
   });
 
   const btnDownloadTestUsersSql = document.getElementById('btn-download-test-users-sql');
