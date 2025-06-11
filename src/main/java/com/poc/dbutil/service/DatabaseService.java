@@ -197,10 +197,10 @@ public class DatabaseService {
     @PostConstruct
     public void init() throws IOException {
         final var objectMapper = new ObjectMapper();
-        characterConfig = objectMapper.readValue(
-            new ClassPathResource("static/characters.json").getFile(),
-            CharacterConfig.class
-        );
+
+        try (var in = new ClassPathResource("static/characters.json").getInputStream()) {
+            characterConfig = objectMapper.readValue(in, CharacterConfig.class);
+        }
 
         blueprintScriptPathReady = isPathToScriptValid("Blueprint", blueprintScriptPath);
         testUsersScriptPathReady = isPathToScriptValid("Test Users", testUsersScriptPath);
