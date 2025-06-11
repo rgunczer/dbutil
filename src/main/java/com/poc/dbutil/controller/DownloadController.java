@@ -36,7 +36,7 @@ public class DownloadController {
 
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error processing requst. " + ex.getMessage());
+                .body("Error processing request. " + ex.getMessage());
         }
     }
 
