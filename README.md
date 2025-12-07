@@ -11,7 +11,7 @@ Tech stack:
 - Java 21
 - Spring-Boot 3.4.x
 - WebApp with Thymeleaf
-- Vanilla JS (HTMX coming soon...)
+- Vanilla JS HTMX?
 
 .env file
 ----------
